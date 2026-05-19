@@ -22,8 +22,11 @@ public class AnimalReaction : MonoBehaviour
 
     [Header("Eventos — conectar en Inspector")]
     public AnimalStateEvent OnStateChanged;
+    public UnityEvent OnPigStateChanged;
+    public UnityEvent OnCowStateChanged;
+    public UnityEvent OnChickenStateChanged;
 
-    // Específicos opcionales (más fácil de conectar a animaciones concretas)
+    // Específicos opcionales (para animaciones)
     public UnityEvent OnPigCleaned;
     public UnityEvent OnCowMilked;
     public UnityEvent OnChickenFed;
@@ -38,6 +41,7 @@ public class AnimalReaction : MonoBehaviour
         pigState = PigState.Clean;
         OnPigCleaned?.Invoke();
         OnStateChanged?.Invoke(AnimalType.Pig, "Clean");
+        OnPigStateChanged?.Invoke();
         Debug.Log("[AnimalReaction] Cerdo limpio");
     }
 
@@ -49,6 +53,7 @@ public class AnimalReaction : MonoBehaviour
         cowState = CowState.Empty;
         OnCowMilked?.Invoke();
         OnStateChanged?.Invoke(AnimalType.Cow, "Empty");
+        OnCowStateChanged?.Invoke();
         Debug.Log("[AnimalReaction] Vaca ordeñada");
     }
 
@@ -60,6 +65,7 @@ public class AnimalReaction : MonoBehaviour
         chickenState = ChickenState.Fed;
         OnChickenFed?.Invoke();
         OnStateChanged?.Invoke(AnimalType.Chicken, "Fed");
+        OnChickenStateChanged?.Invoke();
         Debug.Log("[AnimalReaction] Gallina alimentada");
     }
 

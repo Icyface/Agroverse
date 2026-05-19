@@ -20,9 +20,26 @@ public class TaskFlow : MonoBehaviour
 
     private int _currentTaskIndex = 0;
 
-    // Esto lo llaman los OnStateChanged de cada AnimalReaction
-    // Arrastra este método en el Inspector de cada animal
-    public void OnAnimalStateChanged(AnimalType type, string newState)
+    // ── Métodos arrastrables desde el Inspector ──────────────
+
+    public void OnPigTaskDone()
+    {
+        HandleTaskCompleted(AnimalType.Pig);
+    }
+
+    public void OnCowTaskDone()
+    {
+        HandleTaskCompleted(AnimalType.Cow);
+    }
+
+    public void OnChickenTaskDone()
+    {
+        HandleTaskCompleted(AnimalType.Chicken);
+    }
+
+    // ── Lógica central ───────────────────────────────────────
+
+    void HandleTaskCompleted(AnimalType type)
     {
         if (_currentTaskIndex >= tasks.Count) return;
 
@@ -42,5 +59,11 @@ public class TaskFlow : MonoBehaviour
             Debug.Log($"[TaskFlow] Siguiente tarea: {tasks[_currentTaskIndex].taskName}");
         else
             Debug.Log("[TaskFlow] ¡Todas las tareas completadas!");
+    }
+
+    // Mantenemos este método por si Adrián lo llama directamente por código
+    public void OnAnimalStateChanged(AnimalType type, string newState)
+    {
+        HandleTaskCompleted(type);
     }
 }
