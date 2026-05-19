@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class CowMilkingMechanic : MonoBehaviour, IInteractable
 {
     [Header("Configuración ordeño")]
@@ -49,36 +48,40 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
     void DetectStroke()
     {
         float currentY = _milkerInContact.transform.position.y;
-        float delta = currentY - _lastMilkerY;
 
-        // Detecta cambio de dirección con threshold
-        if (delta > strokeThreshold && !_movingUp)
+        if (!_movingUp)
         {
-            _movingUp = true;
+            if (currentY > _lastMilkerY + strokeThreshold)
+            {
+                _movingUp = true;
+                _lastMilkerY = currentY;
+                Debug.Log($"[CowMilkingMechanic] Subida detectada en Y: {currentY:F3}");
+            }
         }
-        else if (delta < -strokeThreshold && _movingUp)
+        else
         {
-            _movingUp = false;
-            _strokeCount++;
-            Debug.Log($"[CowMilkingMechanic] Pasada {_strokeCount} / {requiredStrokes}");
+            if (currentY < _lastMilkerY - strokeThreshold)
+            {
+                _movingUp = false;
+                _lastMilkerY = currentY;
+                _strokeCount++;
+                Debug.Log($"[CowMilkingMechanic] Pasada {_strokeCount} / {requiredStrokes} — Y: {currentY:F3}");
 
-            if (_strokeCount >= requiredStrokes)
-                CompleteMilking();
+                if (_strokeCount >= requiredStrokes)
+                    CompleteMilking();
+            }
         }
-
-        _lastMilkerY = currentY;
     }
 
     // ── Colisión con la munyidora ────────────────────────────
 
-    void OnTriggerEnter(Collider other)
+    public void OnUdderTriggerEnter(Collider other)
     {
         if (_currentStep == MilkingStep.Done) return;
         if (!other.CompareTag(milkerTag)) return;
 
         PickupObject pickup = other.GetComponent<PickupObject>();
 
-        // Paso 1 → 2: jugador se acerca
         if (_currentStep == MilkingStep.WaitingApproach)
         {
             _currentStep = MilkingStep.WaitingGrab;
@@ -86,7 +89,6 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
             return;
         }
 
-        // Paso 2 → 3: munyidora agarrada entra en contacto
         if (_currentStep == MilkingStep.WaitingGrab)
         {
             if (pickup != null && pickup.IsHeld)
@@ -103,16 +105,12 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
         }
     }
 
-    void OnTriggerExit(Collider other)
+    public void OnUdderTriggerExit(Collider other)
     {
         if (!other.CompareTag(milkerTag)) return;
 
-        if (_currentStep == MilkingStep.Milking)
-        {
-            _milkerInContact = null;
-            Debug.Log("[CowMilkingMechanic] Munyidora alejada — sigue desde donde estabas");
-            // No reseteamos _strokeCount, el jugador puede volver a acercarla
-        }
+        // Opción 2: no anulamos _milkerInContact, seguimos trackeando
+        Debug.Log("[CowMilkingMechanic] Munyidora fuera del trigger — sigue contando");
     }
 
     // ── IInteractable ────────────────────────────────────────
