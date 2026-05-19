@@ -12132,9 +12132,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4069760717362970456, guid: 6892b6ab9550b4440b884485c5edfe93, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: -4069760717362970456, guid: 6892b6ab9550b4440b884485c5edfe93, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4069760717362970456, guid: 6892b6ab9550b4440b884485c5edfe93, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.62
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6892b6ab9550b4440b884485c5edfe93, type: 3}
       propertyPath: m_Name
       value: uploads_files_3340662_LowPoly_FarmReady_fbx
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622929322100711073, guid: 6892b6ab9550b4440b884485c5edfe93, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622929322100711073, guid: 6892b6ab9550b4440b884485c5edfe93, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622929322100711073, guid: 6892b6ab9550b4440b884485c5edfe93, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.81
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
