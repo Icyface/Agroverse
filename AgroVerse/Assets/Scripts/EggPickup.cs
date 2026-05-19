@@ -16,13 +16,13 @@ public class EggPickup : PickupObject
         Debug.Log("[EggPickup] Huevo recogido correctamente.");
 
         // Avisar al TaskManager
-        //TaskManager.Instance?.CompleteTask("recoger_huevo");
+        TaskManager.Instance?.CompleteTask("recoger_huevo");
 
         // Destruir o desactivar el huevo
         gameObject.SetActive(false);
     }
 
-    public  virtual void  OnInteract(InteractionType type)
+    public override void  OnInteract(InteractionType type)
     {
         base.OnInteract(type);
         Debug.Log($"[EggPickup] Huevo interactuado con: {type}");

@@ -51,7 +51,7 @@ public class PickupObject : MonoBehaviour, IInteractable
     }
 
     // ?? IInteractable ??????????????????????????????
-    public void OnInteract(InteractionType type)
+    public virtual void OnInteract(InteractionType type)
     {
         // Las subclases o scripts externos pueden sobreescribir comportamiento
         // Por ejemplo, el huevo llama a EggPickup.OnInteract
