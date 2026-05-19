@@ -7,6 +7,8 @@ TagManager:
   - Anchor
   - Egg
   - grain
+  - Brush
+  - Pig
   layers:
   - Default
   - TransparentFX
