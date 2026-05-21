@@ -6,11 +6,11 @@ public class SpongeCleaner : MonoBehaviour
     {
         if (other.CompareTag("Pig"))
         {
-            PigCleaner pig = other.GetComponent<PigCleaner>();
+            PigCleaner pig = other.GetComponentInParent<PigCleaner>();
 
             if (pig != null)
             {
-                pig.Clean();
+                pig.CleanStep(); // suma 1 pasada
             }
         }
     }
