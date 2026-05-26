@@ -134,5 +134,8 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
         _milkerInContact = null;
         _animalReaction.Milk();
         Debug.Log("[CowMilkingMechanic] ¡Vaca ordeñada! Tarea completada.");
+
+        // ── LÍNEA AÑADIDA ──
+        TaskManager.Instance?.CompleteTask("munyir_vaca");
     }
 }
