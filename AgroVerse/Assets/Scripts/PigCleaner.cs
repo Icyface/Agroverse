@@ -5,30 +5,50 @@ public class PigCleaner : MonoBehaviour
     public GameObject dirtyPig;
     public GameObject cleanPig;
 
-    [Header("Numero de pases necesarios")]
     public int hitsToClean = 3;
-
     private int currentHits = 0;
 
-    public void CleanStep()
+    // 0 = sucio, 1 = mojado, 2 = enjabonado, 3 = limpio
+    private int cleanState = 0;
+
+    public void UseWater()
     {
+        if (cleanState == 0)
+        {
+            cleanState = 1;
+            Debug.Log("Cerdo mojado");
+        }
+        else if (cleanState == 2)
+        {
+            // aclarado final
+            cleanState = 3;
+            CleanComplete();
+        }
+    }
+
+    public void UseSponge()
+    {
+        if (cleanState != 1)
+        {
+            Debug.Log("Primero moja el cerdo");
+            return;
+        }
+
         currentHits++;
-        Debug.Log("Pasadas: " + currentHits);
+        Debug.Log("Frotando: " + currentHits);
 
         if (currentHits >= hitsToClean)
         {
-            CleanComplete();
+            cleanState = 2;
+            Debug.Log("Cerdo enjabonado");
         }
     }
 
     void CleanComplete()
     {
-        dirtyPig.SetActive(false);
-        cleanPig.SetActive(true);
-
         Debug.Log("Cerdo limpio");
 
-        // ── LINEA AnADIDA ──
-        TaskManager.Instance?.CompleteTask("limpiar_cerdo");
+        dirtyPig.SetActive(false);
+        cleanPig.SetActive(true);
     }
 }
