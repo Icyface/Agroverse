@@ -1896,7 +1896,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -2802,31 +2802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1b578395ff19e489d7dbba1aca912c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tasks:
-  - taskName: Limpiar Cerdo
-    targetAnimal: 0
-    isCompleted: 0
-  - taskName: "Orde\xF1ar Vaca"
-    targetAnimal: 0
-    isCompleted: 0
-  - taskName: Dar de comer
-    targetAnimal: 2
-    isCompleted: 0
-  OnTaskCompleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1583466468}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &1583466470
 Transform:
   m_ObjectHideFlags: 0
