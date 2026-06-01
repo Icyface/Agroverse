@@ -71,6 +71,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ca985252bff84441bf45447adcf46b6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1556520461625611899}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ca985252bff84441bf45447adcf46b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9149064632040130585}
   m_SourcePrefab: {fileID: 100100000, guid: 3ca985252bff84441bf45447adcf46b6, type: 3}
 --- !u!1 &4224362706291372873 stripped
 GameObject:
@@ -99,3 +102,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9149064632040130585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4224362706291372873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932b643fbf6318f47b762a546ef11c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceptedFoodType: generic
+  animalName: Animal
+  feedDuration: 3
