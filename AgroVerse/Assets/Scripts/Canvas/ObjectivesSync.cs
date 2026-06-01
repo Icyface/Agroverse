@@ -4,7 +4,7 @@ public class ObjectivesSync : MonoBehaviour
 {
     public ObjectivesUI objectivesUI;
 
-    void Start()
+    private void Start()
     {
         if (objectivesUI == null)
         {
@@ -16,10 +16,10 @@ public class ObjectivesSync : MonoBehaviour
             TaskManager.Instance.onTaskCompleted.AddListener(OnGlobalTaskCompleted);
         }
 
-        SincronizarEstadoInicial();
+        SincronizarEstadoActual();
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (TaskManager.Instance != null)
         {
@@ -29,42 +29,23 @@ public class ObjectivesSync : MonoBehaviour
 
     private void OnGlobalTaskCompleted(string taskId)
     {
-        if (objectivesUI == null) return;
-
-        switch (taskId)
-        {
-            case "recoger_huevo":
-                ForceCompleteEgg();
-                break;
-            case "alimentar_chicken":
-                ForceCompleteFeed();
-                break;
-            case "limpiar_cerdo":
-                objectivesUI.CleanPig();
-                break;
-            case "munyir_vaca":
-                objectivesUI.MilkCow();
-                break;
-        }
+        SincronizarEstadoActual();
     }
 
-    private void SincronizarEstadoInicial()
+    private void SincronizarEstadoActual()
     {
         if (TaskManager.Instance == null || objectivesUI == null) return;
 
-        if (TaskManager.Instance.IsTaskCompleted("recoger_huevo")) ForceCompleteEgg();
-        if (TaskManager.Instance.IsTaskCompleted("alimentar_chicken")) ForceCompleteFeed();
-        if (TaskManager.Instance.IsTaskCompleted("limpiar_cerdo")) objectivesUI.CleanPig();
-        if (TaskManager.Instance.IsTaskCompleted("munyir_vaca")) objectivesUI.MilkCow();
-    }
+        bool eggDone = TaskManager.Instance.IsTaskCompleted("recoger_huevo");
+        bool feedDone = TaskManager.Instance.IsTaskCompleted("alimentar_chicken");
+        bool pigDone = TaskManager.Instance.IsTaskCompleted("limpiar_cerdo");
+        bool cowDone = TaskManager.Instance.IsTaskCompleted("munyir_vaca");
 
-    private void ForceCompleteEgg()
-    {
-        for (int i = 0; i < 3; i++) objectivesUI.AddEgg();
-    }
+        int currentEggs = eggDone ? 3 : objectivesUI.eggs;
+        int currentFeed = feedDone ? 2 : objectivesUI.feed;
+        bool currentPig = pigDone ? true : objectivesUI.pigCleaned;
+        bool currentCow = cowDone ? true : objectivesUI.cowMilked;
 
-    private void ForceCompleteFeed()
-    {
-        for (int i = 0; i < 3; i++) objectivesUI.FeedAnimal();
+        objectivesUI.SetForcedValues(currentEggs, currentFeed, currentPig, currentCow);
     }
 }
