@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5299540692007527279}
   - component: {fileID: 8442801750424422311}
   m_Layer: 0
-  m_Name: Manguera
+  m_Name: manguera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.98, y: 1.34, z: -1.88}
-  m_LocalScale: {x: 0.08, y: 0.08, z: -0.08}
+  m_LocalScale: {x: 0.033492245, y: 0.033492245, z: -0.033492245}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3262904294846117146}
