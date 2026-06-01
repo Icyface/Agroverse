@@ -3,7 +3,7 @@ using UnityEngine;
 public class FoodContainer : PickupObject
 {
     [Header("Comida")]
-    public string foodType = "generic";
+    public string foodType = "grain";
 
     public override void OnInteract(InteractionType type)
     {

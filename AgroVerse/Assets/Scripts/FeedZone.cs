@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class FeedZone : MonoBehaviour
 {
-    [Header("Configuración")]
-    public string acceptedFoodType = "generic";
+    [Header("Configuraciï¿½n")]
+    public string acceptedFoodType = "grain";
     public string animalName = "Animal";
     public float feedDuration = 3f;
 
@@ -25,7 +25,7 @@ public class FeedZone : MonoBehaviour
         {
             _isFeeding = true;
             _feedTimer = 0f;
-            Debug.Log($"[FeedZone] Alimentando a {animalName}... mantén la comida cerca.");
+            Debug.Log($"[FeedZone] Alimentando a {animalName}... mantï¿½n la comida cerca.");
         }
     }
 
@@ -56,7 +56,7 @@ public class FeedZone : MonoBehaviour
         {
             _isFeeding = false;
             _feedTimer = 0f;
-            Debug.Log($"[FeedZone] {animalName}: alimentación cancelada.");
+            Debug.Log($"[FeedZone] {animalName}: alimentaciï¿½n cancelada.");
         }
     }
 
@@ -70,7 +70,7 @@ public class FeedZone : MonoBehaviour
 
         if (_chickensFed >= _chickensRequired)
         {
-            Debug.Log("[FeedZone] ¡Todos los pollos alimentados!");
+            Debug.Log("[FeedZone] ï¿½Todos los pollos alimentados!");
             TaskManager.Instance?.CompleteTask("alimentar_chicken");
         }
     }
