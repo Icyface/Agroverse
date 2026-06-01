@@ -11,8 +11,8 @@ public class ObjectivesUI : MonoBehaviour
 
     private int eggs = 0;
     private int feed = 0;
-    private int pig = 0;
-    private int cow = 0;
+    private bool pigCleaned = false;
+    private bool cowMilked = false;
 
     private void Start()
     {
@@ -23,8 +23,8 @@ public class ObjectivesUI : MonoBehaviour
     {
         eggsText.text = (eggs >= 3 ? "☑" : "☐") + " Huevos: " + eggs + "/3";
         feedText.text = (feed >= 3 ? "☑" : "☐") + " Alimentar animales: " + feed + "/3";
-        pigText.text = (pig >= 1 ? "☑" : "☐") + " Cerdo limpio: " + pig + "/1";
-        cowText.text = (cow >= 1 ? "☑" : "☐") + " Vaca ordeñada: " + cow + "/1";
+        pigText.text = (pigCleaned ? "☑" : "☐") + " Cerdo limpio: " + (pigCleaned ? "1/1" : "0/1");
+        cowText.text = (cowMilked ? "☑" : "☐") + " Vaca ordeñada: " + (cowMilked ? "1/1" : "0/1");
     }
 
     public void AddEgg()
@@ -32,6 +32,10 @@ public class ObjectivesUI : MonoBehaviour
         if (eggs < 3)
         {
             eggs++;
+
+            if (eggs >= 3)
+                TaskManager.Instance.CompleteTask("recoger_huevo");
+
             UpdateUI();
         }
     }
@@ -41,19 +45,35 @@ public class ObjectivesUI : MonoBehaviour
         if (feed < 3)
         {
             feed++;
+
+            if (feed >= 3)
+                TaskManager.Instance.CompleteTask("alimentar_chicken");
+
             UpdateUI();
         }
     }
 
     public void CleanPig()
     {
-        pig = 1;
-        UpdateUI();
+        if (!pigCleaned)
+        {
+            pigCleaned = true;
+
+            TaskManager.Instance.CompleteTask("limpiar_cerdo");
+
+            UpdateUI();
+        }
     }
 
     public void MilkCow()
     {
-        cow = 1;
-        UpdateUI();
+        if (!cowMilked)
+        {
+            cowMilked = true;
+
+            TaskManager.Instance.CompleteTask("munyir_vaca");
+
+            UpdateUI();
+        }
     }
 }
