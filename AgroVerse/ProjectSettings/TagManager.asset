@@ -9,6 +9,8 @@ TagManager:
   - grain
   - Brush
   - Milker
+  - Pig
+  - Hand
   layers:
   - Default
   - TransparentFX
