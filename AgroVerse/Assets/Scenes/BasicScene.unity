@@ -827,6 +827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceptedFoodType: grain
   animalName: Chicken
+  feedDuration: 3
 --- !u!65 &692972062
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2122,6 +2123,63 @@ Transform:
   - {fileID: 1500321750}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1001 &1052571129
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_Name
+      value: XR Device Simulator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
 --- !u!1001 &1097967476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2560,7 +2618,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPickup: 1
   foodType: grain
-  isEmpty: 0
 --- !u!65 &1200371790
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2841,6 +2898,7 @@ MonoBehaviour:
   requiredStrokes: 4
   strokeThreshold: 0.03
   strokeCooldown: 0.6
+  soundCooldown: 3.5
   handTag: Hand
   milkParticles: {fileID: 0}
 --- !u!114 &1215049582
@@ -13120,6 +13178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8984a4a6893a7aa4ea02b5389d6238da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eggsRequired: 3
 --- !u!1 &1859284455 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5268460675038366902, guid: f5afcb7f49afad5419049090809f5cc7, type: 3}
@@ -13650,3 +13709,4 @@ SceneRoots:
   - {fileID: 993671538}
   - {fileID: 1097967476}
   - {fileID: 944151884}
+  - {fileID: 1052571129}

@@ -20,7 +20,6 @@ public class PigCleaner : MonoBehaviour
         }
         else if (cleanState == 2)
         {
-            // aclarado final
             cleanState = 3;
             CleanComplete();
         }
@@ -50,5 +49,8 @@ public class PigCleaner : MonoBehaviour
 
         dirtyPig.SetActive(false);
         cleanPig.SetActive(true);
+
+        // ── LÍNEA AÑADIDA ──
+        TaskManager.Instance?.CompleteTask("limpiar_cerdo");
     }
 }
