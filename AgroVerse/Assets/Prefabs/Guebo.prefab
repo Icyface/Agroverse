@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1246645002163247324
+--- !u!1 &4704191972208724597
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3817517947241682533}
+  - component: {fileID: 7764792462316153417}
   m_Layer: 0
   m_Name: AttachPoint
   m_TagString: Untagged
@@ -16,22 +16,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3817517947241682533
+--- !u!4 &7764792462316153417
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246645002163247324}
+  m_GameObject: {fileID: 4704191972208724597}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 453824330685083041}
+  m_Father: {fileID: 9131960129781407507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3895803166277004240
+--- !u!1 &8706352438108116116
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,50 +39,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 453824330685083041}
-  - component: {fileID: 3974571214860314792}
-  - component: {fileID: 5792475925604755810}
-  - component: {fileID: 7524505978718365535}
-  - component: {fileID: 8932187676743438395}
-  - component: {fileID: 639463862825152485}
+  - component: {fileID: 9131960129781407507}
+  - component: {fileID: 4035015055120129103}
+  - component: {fileID: 5242028345197280514}
+  - component: {fileID: 7437432354689094239}
+  - component: {fileID: 8455834839336218744}
+  - component: {fileID: 1829521838345425522}
+  - component: {fileID: 1100217695813464458}
   m_Layer: 0
-  m_Name: egg_01
-  m_TagString: Untagged
+  m_Name: Guebo
+  m_TagString: Egg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &453824330685083041
+--- !u!4 &9131960129781407507
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895803166277004240}
+  m_GameObject: {fileID: 8706352438108116116}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.152191, y: -0.0323, z: 22.35459}
-  m_LocalScale: {x: 0.21372, y: 0.21372, z: 0.21372}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.352, y: 0.004, z: 0.348}
+  m_LocalScale: {x: 0.46, y: 0.46, z: 0.46}
+  m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 3817517947241682533}
+  - {fileID: 7764792462316153417}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3974571214860314792
+--- !u!33 &4035015055120129103
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895803166277004240}
+  m_GameObject: {fileID: 8706352438108116116}
   m_Mesh: {fileID: 4977131475666943381, guid: 4044704f154e01243830ec998d9bae6b, type: 3}
---- !u!23 &5792475925604755810
+--- !u!23 &5242028345197280514
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895803166277004240}
+  m_GameObject: {fileID: 8706352438108116116}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -121,13 +122,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7524505978718365535
+--- !u!64 &7437432354689094239
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895803166277004240}
+  m_GameObject: {fileID: 8706352438108116116}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -143,13 +144,13 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4977131475666943381, guid: 4044704f154e01243830ec998d9bae6b, type: 3}
---- !u!54 &8932187676743438395
+--- !u!54 &8455834839336218744
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895803166277004240}
+  m_GameObject: {fileID: 8706352438108116116}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -170,13 +171,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &639463862825152485
+--- !u!114 &1829521838345425522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895803166277004240}
+  m_GameObject: {fileID: 8706352438108116116}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
@@ -244,7 +245,7 @@ MonoBehaviour:
   m_StartingInteractionStrengthFilters: []
   m_AutoFindParentInteractableInHierarchy: 0
   m_ParentInteractableObject: {fileID: 0}
-  m_AttachTransform: {fileID: 3817517947241682533}
+  m_AttachTransform: {fileID: 7764792462316153417}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -299,3 +300,16 @@ MonoBehaviour:
   m_LimitAngularVelocity: 0
   m_MaxLinearVelocityDelta: 10
   m_MaxAngularVelocityDelta: 20
+--- !u!114 &1100217695813464458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706352438108116116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41561fea024d5fa48ab9ede1b1205c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasBeenCollected: 0

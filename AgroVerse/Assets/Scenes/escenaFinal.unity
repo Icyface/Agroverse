@@ -2214,6 +2214,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
+      propertyPath: m_Volume
+      value: 0.241
+      objectReference: {fileID: 0}
     - target: {fileID: 2070253691702240148, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Controller
       value: 
@@ -20995,6 +20999,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
+      propertyPath: m_Volume
+      value: 0.337
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2464591157055615560, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Name
       value: vaca1
@@ -21050,6 +21062,10 @@ PrefabInstance:
     - target: {fileID: 2988186962838300914, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3822925120020071558, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24156,6 +24172,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
+      propertyPath: m_Volume
+      value: 0.237
+      objectReference: {fileID: 0}
     - target: {fileID: 2070253691702240148, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Controller
       value: 
@@ -35843,6 +35863,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
+      propertyPath: m_Volume
+      value: 0.235
+      objectReference: {fileID: 0}
     - target: {fileID: 2070253691702240148, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Controller
       value: 
