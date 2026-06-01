@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class MangueraCerdo : MonoBehaviour
 {
     public ParticleSystem waterParticles;
@@ -9,46 +8,41 @@ public class MangueraCerdo : MonoBehaviour
 
     void Start()
     {
-        grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+        grabInteractable = GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
 
         if (waterParticles != null)
         {
-            waterParticles.Stop(); // empieza apagado
+            waterParticles.Stop();
         }
     }
 
     void Update()
     {
-        if (grabInteractable.isSelected)
+        if (grabInteractable != null && grabInteractable.isSelected)
         {
-            //EST�S COGIENDO LA MANGUERA
             if (!waterParticles.isPlaying)
-            {
                 waterParticles.Play();
-            }
         }
         else
         {
-            //NO LA TIENES EN LA MANO
             if (waterParticles.isPlaying)
-            {
                 waterParticles.Stop();
-            }
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnParticleCollision(GameObject other)
     {
-        // solo moja si la est�s cogiendo Y tocas el cerdo
-        if (grabInteractable.isSelected && other.CompareTag("Pig"))
+        Debug.Log("PARTICULA TOCA: " + other.name);
+
+        if (other.CompareTag("Pig"))
         {
             PigCleaner pig = other.GetComponentInParent<PigCleaner>();
 
             if (pig != null)
             {
+                Debug.Log("CERDO MOJADO");
                 pig.UseWater();
             }
         }
     }
 }
-
