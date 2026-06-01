@@ -1078,36 +1078,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2464591157055615560, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 944151886}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
---- !u!1 &944151885 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2464591157055615560, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
-  m_PrefabInstance: {fileID: 944151884}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &944151886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944151885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 230bec02aa8ae1942a83de5d8ac5e7dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animalType: 1
-  currentState: 1
-  OnAnimalStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAnimalTaskComplete:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &993671528
 GameObject:
   m_ObjectHideFlags: 0
