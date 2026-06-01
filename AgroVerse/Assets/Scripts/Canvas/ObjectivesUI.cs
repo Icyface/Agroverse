@@ -21,10 +21,15 @@ public class ObjectivesUI : MonoBehaviour
 
     private void UpdateUI()
     {
-        eggsText.text = (eggs >= 3 ? "☑" : "☐") + " Recoger huevos: " + eggs + "/3";
-        feedText.text = (feed >= 2 ? "☑" : "☐") + " Alimentar gallinas: " + feed + "/2";
-        pigText.text = (pigCleaned ? "☑" : "☐") + " Cerdo limpio: " + (pigCleaned ? "1/1" : "0/1");
-        cowText.text = (cowMilked ? "☑" : "☐") + " Vaca ordeñada: " + (cowMilked ? "1/1" : "0/1");
+        string tickEgg = eggs >= 3 ? "<color=green>[X]</color>" : "<color=#aaaaaa>[ ]</color>";
+        string tickFeed = feed >= 2 ? "<color=green>[X]</color>" : "<color=#aaaaaa>[ ]</color>";
+        string tickPig = pigCleaned ? "<color=green>[X]</color>" : "<color=#aaaaaa>[ ]</color>";
+        string tickCow = cowMilked ? "<color=green>[X]</color>" : "<color=#aaaaaa>[ ]</color>";
+
+        eggsText.text = $"{tickEgg} Recoger huevos: {eggs}/3";
+        feedText.text = $"{tickFeed} Alimentar gallinas: {feed}/2";
+        pigText.text = $"{tickPig} Cerdo limpio: {(pigCleaned ? "1/1" : "0/1")}";
+        cowText.text = $"{tickCow} Vaca ordeñada: {(cowMilked ? "1/1" : "0/1")}";
     }
 
     public void AddEgg()
