@@ -911,6 +911,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2464591157055615560, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Name
       value: vaca1

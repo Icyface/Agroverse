@@ -11,6 +11,10 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
     [Tooltip("Tiempo mínimo en segundos entre tirón y tirón para que no vaya súper rápido")]
     public float strokeCooldown = 0.6f;
 
+    [Header("Configuración de Sonido")]
+    [Tooltip("Tiempo mínimo en segundos para que el 'muuu' vuelva a sonar sin cortarse")]
+    public float soundCooldown = 3.5f;
+
     [Header("Referencias de VR (Mandos)")]
     public string handTag = "Hand";
 
@@ -29,8 +33,9 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
     private bool _movingUp;
     private int _strokeCount = 0;
 
-    // Control de tiempo para el ritmo
+    // Control de tiempos
     private float _nextStrokeTime = 0f;
+    private float _nextSoundTime = 0f; // Controla cuándo puede volver a mugir
 
     private InputDevice _targetDevice;
 
@@ -53,7 +58,6 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
 
         if (_currentState == MilkingState.Milking && _handInContact != null)
         {
-            // Ahora comprueba que AMBOS botones estén presionados a la vez
             if (IsPlayerSqueezingBothButtons())
             {
                 DetectHandStroke();
@@ -65,7 +69,6 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
         }
     }
 
-    // Devuelve 'true' SOLO si se están apretando el Grip Y el Trigger al mismo tiempo
     bool IsPlayerSqueezingBothButtons()
     {
         if (!_targetDevice.isValid) return false;
@@ -73,13 +76,11 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
         _targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripPressed);
         _targetDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerPressed);
 
-        // Retorna verdadero solo si cierras la mano (Grip) Y aprietas el dedo índice (Trigger)
         return gripPressed && triggerPressed;
     }
 
     void DetectHandStroke()
     {
-        // Si no ha pasado el tiempo de cooldown, ignoramos el movimiento
         if (Time.time < _nextStrokeTime) return;
 
         float currentHandY = _handInContact.transform.position.y;
@@ -95,22 +96,26 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
                 _movingUp = isNowMovingUp;
                 _lastHandY = currentHandY;
                 
-                // Aplicamos el cooldown para el siguiente tirón
                 _nextStrokeTime = Time.time + strokeCooldown;
 
                 Debug.Log($"[Ordeño] Tirón válido registrado. Progreso: {_strokeCount}/{requiredStrokes}");
 
-                // --- FEEDBACK VISUAL MEJORADO ---
+                // --- FEEDBACK VISUAL (Sale con cada tirón) ---
                 if (milkParticles != null)
                 {
-                   milkParticles.Clear(); // Borra al instante los chorros viejos que queden flotando
-                    milkParticles.Stop();  // Detiene el sistema por si acaso antes de reiniciarlo// Resetea el chorro anterior si quedaba algo
-                    milkParticles.Play(); // Lanza un lechazo nuevo e independiente
+                    milkParticles.Clear();
+                    milkParticles.Stop();
+                    milkParticles.Play();
                 }
 
-                if (_sonidoAnimacion != null)
+                // --- FEEDBACK ACÚSTICO CONTROLADO (Solo si ha pasado el cooldown del sonido) ---
+                if (_sonidoAnimacion != null && Time.time >= _nextSoundTime)
+                {
                     _sonidoAnimacion.ReproducirSonido();
+                    _nextSoundTime = Time.time + soundCooldown; // Bloquea el sonido durante X segundos
+                }
 
+                // Animación física de la vaca
                 if (_animator != null)
                     _animator.SetTrigger("Moverse");
 
@@ -167,10 +172,18 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
         if (milkParticles != null)
             milkParticles.Stop();
 
-        _animalReaction.ChangeState(AnimalState.Final); 
+        if (_animalReaction != null)
+            _animalReaction.ChangeState(AnimalState.Final); 
 
         if (TaskManager.Instance != null)
+        {
             TaskManager.Instance.CompleteTask("munyir_vaca"); 
+            Debug.Log("[CowMilkingMechanic] Se ha enviado la señal de éxito al TaskManager.");
+        }
+        else
+        {
+            Debug.LogError("[ERROR] TaskManager.Instance es NULL.");
+        }
         
         Debug.Log("[CowMilkingMechanic] ¡Vaca completamente ordeñada!");
     }
