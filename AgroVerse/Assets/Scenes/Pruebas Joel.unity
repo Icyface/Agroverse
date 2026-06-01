@@ -876,6 +876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 849676120}
   - component: {fileID: 849676119}
+  - component: {fileID: 849676121}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -963,6 +964,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &849676121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849676118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1273783313
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,19 +1021,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalType: 1
-  pigState: 0
-  cowState: 0
-  chickenState: 0
-  OnStateChanged:
+  currentState: 0
+  OnAnimalStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  OnPigCleaned:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCowMilked:
-    m_PersistentCalls:
-      m_Calls: []
-  OnChickenFed:
+  OnAnimalTaskComplete:
     m_PersistentCalls:
       m_Calls: []
 --- !u!136 &1273783315
@@ -1117,7 +1133,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredStrokes: 8
   strokeThreshold: 0.05
-  milkerTag: Milker
+  strokeCooldown: 0.6
+  handTag: Hand
+  milkParticles: {fileID: 0}
 --- !u!1 &1330653757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,31 +1307,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalType: 0
-  pigState: 0
-  cowState: 0
-  chickenState: 0
-  OnStateChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: 0e1b578395ff19e489d7dbba1aca912c, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnPigCleaned:
+  currentState: 0
+  OnAnimalStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  OnCowMilked:
-    m_PersistentCalls:
-      m_Calls: []
-  OnChickenFed:
+  OnAnimalTaskComplete:
     m_PersistentCalls:
       m_Calls: []
 --- !u!65 &1340233986
@@ -1453,19 +1451,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalType: 2
-  pigState: 0
-  cowState: 0
-  chickenState: 0
-  OnStateChanged:
+  currentState: 0
+  OnAnimalStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  OnPigCleaned:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCowMilked:
-    m_PersistentCalls:
-      m_Calls: []
-  OnChickenFed:
+  OnAnimalTaskComplete:
     m_PersistentCalls:
       m_Calls: []
 --- !u!135 &1415486728
@@ -1616,19 +1606,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalType: 2
-  pigState: 0
-  cowState: 0
-  chickenState: 0
-  OnStateChanged:
+  currentState: 0
+  OnAnimalStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  OnPigCleaned:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCowMilked:
-    m_PersistentCalls:
-      m_Calls: []
-  OnChickenFed:
+  OnAnimalTaskComplete:
     m_PersistentCalls:
       m_Calls: []
 --- !u!23 &1449480086
@@ -1910,7 +1892,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredStrokes: 8
   strokeThreshold: 0.05
-  milkerTag: Milker
+  strokeCooldown: 0.6
+  handTag: Hand
+  milkParticles: {fileID: 0}
 --- !u!114 &1805676494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,31 +1908,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalType: 0
-  pigState: 0
-  cowState: 0
-  chickenState: 0
-  OnStateChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnPigCleaned:
+  currentState: 0
+  OnAnimalStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  OnCowMilked:
-    m_PersistentCalls:
-      m_Calls: []
-  OnChickenFed:
+  OnAnimalTaskComplete:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1660057539 &9223372036854775807
