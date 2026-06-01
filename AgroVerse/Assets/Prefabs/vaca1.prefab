@@ -358,6 +358,7 @@ Transform:
   - {fileID: 338652887355283453}
   - {fileID: 148624150326119099}
   - {fileID: 7686866620358302548}
+  - {fileID: 2293850756989169227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 50.642, z: 0}
 --- !u!95 &2070253691702240148
@@ -528,6 +529,72 @@ MonoBehaviour:
   strokeThreshold: 0.05
   handTag: Hand
   milkParticles: {fileID: 3848104997805595641}
+--- !u!1 &2697579219125679408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2293850756989169227}
+  - component: {fileID: 2049314891170147685}
+  - component: {fileID: 2862747311995446213}
+  m_Layer: 0
+  m_Name: UdderZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2293850756989169227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2697579219125679408}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.78, z: 2.22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2988186962838300914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2049314891170147685
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2697579219125679408}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.69, y: 1.53, z: 2.22}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2862747311995446213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2697579219125679408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b50e8a4cb627749bb4f0e982c6ed98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2701868150580936061
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,13 +1045,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4417405889712719809}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6743299, y: 0.044232626, z: 0.04964352, w: 0.7354306}
+  m_LocalRotation: {x: 0.67608595, y: -0.020395905, z: -0.009650557, w: 0.73647726}
   m_LocalPosition: {x: -0, y: -0.822, z: 2.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2988186962838300914}
-  m_LocalEulerAnglesHint: {x: 80.915, y: 56.721, z: 57.161}
+  m_LocalEulerAnglesHint: {x: 84.532, y: -26.888, z: -26.016}
 --- !u!198 &3848104997805595641
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -1822,7 +1889,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 60
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5732,7 +5799,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 11b70a161ca0da047b74b6c6f2405d9c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5760,7 +5827,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 17.14
+  m_LengthScale: 48
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0

@@ -1,63 +1,87 @@
 using UnityEngine;
+using UnityEngine.XR;
 
 public class CowMilkingMechanic : MonoBehaviour, IInteractable
 {
     [Header("Configuración Ordeño")]
-    [Tooltip("Movimientos arriba-abajo requeridos con la mano")]
+    [Tooltip("Movimientos arriba-abajo requeridos con el mando")]
     public int requiredStrokes = 8;
     [Tooltip("Distancia vertical mínima para contar un movimiento")]
     public float strokeThreshold = 0.05f;
+    [Tooltip("Tiempo mínimo en segundos entre tirón y tirón para que no vaya súper rápido")]
+    public float strokeCooldown = 0.6f;
 
-    [Header("Referencias de VR (Manos)")]
-    [Tooltip("Tag que tienen los colisionadores de las manos del jugador en VR")]
-    public string handTag = "Hand"; // Asegúrate de que tus manos en VR tengan este Tag o cámbialo aquí
+    [Header("Referencias de VR (Mandos)")]
+    public string handTag = "Hand";
 
     [Header("Efectos Visuales y Sonido")]
-    [Tooltip("Arrastra aquí las partículas de leche que saldrán de las ubres")]
     public ParticleSystem milkParticles;
     
-    [Tooltip("Script de sonido y animación que nos pasaste")]
     private SonidoAnimacion _sonidoAnimacion;
     private Animator _animator;
-
-    // Referencias internas
     private AnimalReaction _animalReaction;
 
-    // Estados del ordeño
     private enum MilkingState { Waiting, Milking, Done }
     private MilkingState _currentState = MilkingState.Waiting;
 
-    // Control del movimiento de la mano
     private GameObject _handInContact;
     private float _lastHandY;
     private bool _movingUp;
     private int _strokeCount = 0;
 
+    // Control de tiempo para el ritmo
+    private float _nextStrokeTime = 0f;
+
+    private InputDevice _targetDevice;
+
     void Awake()
     {
         _animalReaction = GetComponent<AnimalReaction>();
         _sonidoAnimacion = GetComponent<SonidoAnimacion>();
-        _animator = GetComponent<Animator>(); // Para activar las animaciones de la cola/cabeza
+        _animator = GetComponent<Animator>();
 
         if (_animalReaction == null)
             Debug.LogError("[CowMilkingMechanic] Falta AnimalReaction en " + gameObject.name);
         
         if (milkParticles != null)
-            milkParticles.Stop(); // Empezar sin soltar leche
+            milkParticles.Stop();
     }
 
     void Update()
     {
         if (_currentState == MilkingState.Done) return;
 
-        // Si la mano está en la zona y se está moviendo
         if (_currentState == MilkingState.Milking && _handInContact != null)
-            DetectHandStroke();
+        {
+            // Ahora comprueba que AMBOS botones estén presionados a la vez
+            if (IsPlayerSqueezingBothButtons())
+            {
+                DetectHandStroke();
+            }
+            else
+            {
+                _lastHandY = _handInContact.transform.position.y;
+            }
+        }
     }
 
-    // ── DETECCIÓN DEL MOVIMIENTO ARRIBA/ABAJO DE LA MANO ────────────────
+    // Devuelve 'true' SOLO si se están apretando el Grip Y el Trigger al mismo tiempo
+    bool IsPlayerSqueezingBothButtons()
+    {
+        if (!_targetDevice.isValid) return false;
+
+        _targetDevice.TryGetFeatureValue(CommonUsages.gripButton, out bool gripPressed);
+        _targetDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerPressed);
+
+        // Retorna verdadero solo si cierras la mano (Grip) Y aprietas el dedo índice (Trigger)
+        return gripPressed && triggerPressed;
+    }
+
     void DetectHandStroke()
     {
+        // Si no ha pasado el tiempo de cooldown, ignoramos el movimiento
+        if (Time.time < _nextStrokeTime) return;
+
         float currentHandY = _handInContact.transform.position.y;
         float deltaY = currentHandY - _lastHandY;
 
@@ -65,47 +89,57 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
         {
             bool isNowMovingUp = deltaY > 0;
 
-            // Si cambia de dirección (sube tras bajar, o baja tras subir) cuenta como un "stroke"
             if (isNowMovingUp != _movingUp)
             {
                 _strokeCount++;
                 _movingUp = isNowMovingUp;
                 _lastHandY = currentHandY;
+                
+                // Aplicamos el cooldown para el siguiente tirón
+                _nextStrokeTime = Time.time + strokeCooldown;
 
-                Debug.Log($"[Ordeño] Progreso: {_strokeCount}/{requiredStrokes}");
+                Debug.Log($"[Ordeño] Tirón válido registrado. Progreso: {_strokeCount}/{requiredStrokes}");
 
-                // --- FEEDBACK EN TIEMPO REAL ---
-                // 1. Activar partículas de leche momentáneamente
-                if (milkParticles != null && !milkParticles.isPlaying)
-                    milkParticles.Play();
+                // --- FEEDBACK VISUAL MEJORADO ---
+                if (milkParticles != null)
+                {
+                   milkParticles.Clear(); // Borra al instante los chorros viejos que queden flotando
+                    milkParticles.Stop();  // Detiene el sistema por si acaso antes de reiniciarlo// Resetea el chorro anterior si quedaba algo
+                    milkParticles.Play(); // Lanza un lechazo nuevo e independiente
+                }
 
-                // 2. Hacer ruido (reproduce el sonido del animal)
                 if (_sonidoAnimacion != null)
                     _sonidoAnimacion.ReproducirSonido();
 
-                // 3. Activar animación en el Animator de la vaca (Mover cola/cabeza)
                 if (_animator != null)
-                    _animator.SetTrigger("Moverse"); // Asegúrate de que el parámetro en el Animator sea un Trigger llamado "Moverse"
+                    _animator.SetTrigger("Moverse");
 
-                // Comprobar si hemos terminado
                 if (_strokeCount >= requiredStrokes)
                     CompleteMilking();
             }
         }
     }
 
-    // ── TRIGGERS (Llamados desde UdderZoneTrigger) ──────────────────────
     public void OnUdderTriggerEnter(Collider other)
     {
         if (_currentState == MilkingState.Done) return;
 
-        // Comprobamos si lo que toca las ubres es la mano del jugador
         if (other.CompareTag(handTag))
         {
             _currentState = MilkingState.Milking;
             _handInContact = other.gameObject;
             _lastHandY = other.transform.position.y;
-            Debug.Log("[CowMilkingMechanic] Mano en la ubre. ¡Empieza a mover de arriba a abajo!");
+
+            if (other.gameObject.name.ToLower().Contains("left"))
+            {
+                _targetDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            }
+            else
+            {
+                _targetDevice = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+            }
+
+            Debug.Log("[CowMilkingMechanic] Mando en la ubre. ¡Mantén pulsados GRIP + GATILLO a la vez y tira!");
         }
     }
 
@@ -119,32 +153,28 @@ public class CowMilkingMechanic : MonoBehaviour, IInteractable
             _handInContact = null;
             
             if (milkParticles != null)
-                milkParticles.Stop(); // Deja de salir leche si quitas la mano
+                milkParticles.Stop();
             
-            Debug.Log("[CowMilkingMechanic] Mano fuera de la ubre.");
+            Debug.Log("[CowMilkingMechanic] Mando fuera de la ubre.");
         }
     }
 
-    // ── FINALIZAR TAREA ─────────────────────────────────────────────────
-void CompleteMilking()
-{
-    _currentState = MilkingState.Done;
-    _handInContact = null;
+    void CompleteMilking()
+    {
+        _currentState = MilkingState.Done;
+        _handInContact = null;
 
-    if (milkParticles != null)
-        milkParticles.Stop();
+        if (milkParticles != null)
+            milkParticles.Stop();
 
-    // 1. Cambia el estado de la vaca al Estado Final usando el nuevo script limpio
-    _animalReaction.ChangeState(AnimalState.Final); 
+        _animalReaction.ChangeState(AnimalState.Final); 
 
-    // 2. Notifica al TaskManager
-    if (TaskManager.Instance != null)
-        TaskManager.Instance.CompleteTask("munyir_vaca"); 
-    
-    Debug.Log("[CowMilkingMechanic] ¡Vaca completamente ordeñada!");
-}
+        if (TaskManager.Instance != null)
+            TaskManager.Instance.CompleteTask("munyir_vaca"); 
+        
+        Debug.Log("[CowMilkingMechanic] ¡Vaca completamente ordeñada!");
+    }
 
-    // Interfaz requerida por vuestro sistema
     public void OnInteract(InteractionType type) { }
     public bool IsInteractable() => _currentState != MilkingState.Done;
 }
