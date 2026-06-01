@@ -2,94 +2,59 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public enum AnimalType { Pig, Cow, Chicken }
-
-public enum PigState    { Dirty, Clean }
-public enum CowState    { Full, Empty }
-public enum ChickenState { Hungry, Fed }
-
-[System.Serializable]
-public class AnimalStateEvent : UnityEvent<AnimalType, string> { }
+public enum AnimalState { Initial, Active, Final } 
+// Explicación de estados unificados:
+// Pig:     Initial = Sucio,   Active = Mojado/Enjabonado, Final = Limpio
+// Cow:     Initial = Con Leche (Full),                     Final = Ordeñada (Empty)
+// Chicken: Initial = Hambrienta (Hungry),                  Final = Alimentada (Fed)
 
 public class AnimalReaction : MonoBehaviour
 {
-    [Header("Tipo de animal")]
+    [Header("Configuración del Animal")]
     public AnimalType animalType;
+    
+    [Header("Estado Actual")]
+    [SerializeField] private AnimalState currentState = AnimalState.Initial;
 
-    [Header("Estados iniciales")]
-    public PigState     pigState     = PigState.Dirty;
-    public CowState     cowState     = CowState.Full;
-    public ChickenState chickenState = ChickenState.Hungry;
+    [Header("Eventos de Animación y Sonido")]
+    [Tooltip("Se activa cada vez que el animal cambia de estado (útil para sonido/animación)")]
+    public UnityEvent<AnimalState> OnAnimalStateChanged;
 
-    [Header("Eventos — conectar en Inspector")]
-    public AnimalStateEvent OnStateChanged;
-    public UnityEvent OnPigStateChanged;
-    public UnityEvent OnCowStateChanged;
-    public UnityEvent OnChickenStateChanged;
+    [Tooltip("Se activa ÚNICAMENTE cuando el animal completa su ciclo/tarea final")]
+    public UnityEvent OnAnimalTaskComplete;
 
-    // Específicos opcionales (para animaciones)
-    public UnityEvent OnPigCleaned;
-    public UnityEvent OnCowMilked;
-    public UnityEvent OnChickenFed;
+    // Propiedad pública para leer el estado actual desde otros scripts sin poder modificarlo directamente
+    public AnimalState CurrentState => currentState;
 
-    // ── API pública ──────────────────────────────────────────
-
-    public void Clean()
+    /// <summary>
+    /// Cambia el estado del animal y dispara los eventos correspondientes.
+    /// </summary>
+    public void ChangeState(AnimalState newState)
     {
-        if (animalType != AnimalType.Pig) return;
-        if (pigState == PigState.Clean) return;
+        if (currentState == newState) return; // Si ya está en ese estado, no hacemos nada
 
-        pigState = PigState.Clean;
-        OnPigCleaned?.Invoke();
-        OnStateChanged?.Invoke(AnimalType.Pig, "Clean");
-        OnPigStateChanged?.Invoke();
-        Debug.Log("[AnimalReaction] Cerdo limpio");
+        currentState = newState;
+        Debug.Log($"[{gameObject.name} ({animalType})] Cambió de estado a: {currentState}");
+
+        // Invocar evento general con el nuevo estado
+        OnAnimalStateChanged?.Invoke(currentState);
+
+        // Si llega al estado final, avisamos que la tarea del animal ha terminado
+        if (currentState == AnimalState.Final)
+        {
+            OnAnimalTaskComplete?.Invoke();
+            Debug.Log($"[{gameObject.name}] ¡Ciclo de interacciones completado!");
+        }
     }
 
-    public void Milk()
-    {
-        if (animalType != AnimalType.Cow) return;
-        if (cowState == CowState.Empty) return;
-
-        cowState = CowState.Empty;
-        OnCowMilked?.Invoke();
-        OnStateChanged?.Invoke(AnimalType.Cow, "Empty");
-        OnCowStateChanged?.Invoke();
-        Debug.Log("[AnimalReaction] Vaca ordeñada");
-    }
-
-    public void Feed()
-    {
-        if (animalType != AnimalType.Chicken) return;
-        if (chickenState == ChickenState.Fed) return;
-
-        chickenState = ChickenState.Fed;
-        OnChickenFed?.Invoke();
-        OnStateChanged?.Invoke(AnimalType.Chicken, "Fed");
-        OnChickenStateChanged?.Invoke();
-        Debug.Log("[AnimalReaction] Gallina alimentada");
-    }
-
-    // ── Consulta de estado ────────────────────────────────────
+    // ── Métodos de compatibilidad (para no romper los scripts que ya tenéis) ──
+    
+    public void Clean() => ChangeState(AnimalState.Final);
+    public void Milk() => ChangeState(AnimalState.Final);
+    public void Feed() => ChangeState(AnimalState.Final);
 
     public bool IsTaskComplete()
     {
-        return animalType switch
-        {
-            AnimalType.Pig     => pigState     == PigState.Clean,
-            AnimalType.Cow     => cowState     == CowState.Empty,
-            AnimalType.Chicken => chickenState == ChickenState.Fed,
-            _                  => false
-        };
-    }
-
-    public string GetCurrentStateLabel()
-    {
-        return animalType switch
-        {
-            AnimalType.Pig     => pigState.ToString(),
-            AnimalType.Cow     => cowState.ToString(),
-            AnimalType.Chicken => chickenState.ToString(),
-            _                  => "Unknown"
-        };
+        return currentState == AnimalState.Final;
     }
 }
