@@ -6,11 +6,12 @@ public class UIController : MonoBehaviour
     public GameObject seccionListaTareas;
     public GameObject seccionAjustes;
 
-    [Header("Paneles de Tareas Individuales")]
+    [Header("Paneles De Tareas Individuales")]
     public GameObject panelRecogerHuevos;
     public GameObject panelLimpiarCerdos;
     public GameObject panelAlimentarAnimales;
     public GameObject panelOrdeñarVaca;
+    public GameObject panelTaskManager;
 
     [Header("Configuración VR")]
     public float distanciaAlJugador = 2.0f;
@@ -69,6 +70,23 @@ public class UIController : MonoBehaviour
         Application.Quit();
     }
 
+    public void MostrarPanelTaskManager()
+    {
+        if (panelTaskManager != null)
+        {
+            if (panelTaskManager.activeSelf)
+            {
+                panelTaskManager.SetActive(false);
+            }
+            else
+            {
+                OcultarTodasLasTareas();
+                PosicionarFrenteAlJugador(panelTaskManager);
+                panelTaskManager.SetActive(true);
+            }
+        }
+    }
+
     public void MostrarTareaRecogerHuevos()
     {
         OcultarTodasLasTareas();
@@ -115,6 +133,7 @@ public class UIController : MonoBehaviour
         if (panelLimpiarCerdos) panelLimpiarCerdos.SetActive(false);
         if (panelAlimentarAnimales) panelAlimentarAnimales.SetActive(false);
         if (panelOrdeñarVaca) panelOrdeñarVaca.SetActive(false);
+        if (panelTaskManager) panelTaskManager.SetActive(false);
     }
 
     private void PosicionarFrenteAlJugador(GameObject panel)
