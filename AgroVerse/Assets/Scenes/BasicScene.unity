@@ -1550,7 +1550,7 @@ GameObject:
   - component: {fileID: 1200371794}
   m_Layer: 0
   m_Name: Food Bucket
-  m_TagString: Untagged
+  m_TagString: grain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2327,6 +2327,14 @@ PrefabInstance:
     - target: {fileID: 4224362706291372873, guid: 26a7899ef02f8244baaabc9ee398e493, type: 3}
       propertyPath: m_Name
       value: gallina1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149064632040130585, guid: 26a7899ef02f8244baaabc9ee398e493, type: 3}
+      propertyPath: animalName
+      value: Chicken
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149064632040130585, guid: 26a7899ef02f8244baaabc9ee398e493, type: 3}
+      propertyPath: acceptedFoodType
+      value: grain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
