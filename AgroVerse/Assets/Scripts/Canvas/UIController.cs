@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    [Header("Paneles Principales")]
-    public GameObject panelMenuPrincipal;
-    public GameObject panelListaTareas;
-    public GameObject panelAjustes;
+    [Header("Paneles Principales Interactivos")]
+    public GameObject seccionListaTareas;
+    public GameObject seccionAjustes;
 
     [Header("Paneles de Tareas Individuales")]
     public GameObject panelRecogerHuevos;
@@ -14,10 +13,7 @@ public class UIController : MonoBehaviour
     public GameObject panelOrdeñarVaca;
 
     [Header("Configuración VR")]
-    [Tooltip("Distancia horizontal a la que aparecerá el cartel frente al jugador")]
     public float distanciaAlJugador = 2.0f;
-
-    [Tooltip("Altura fija del cartel respecto al suelo del mapa (Y = 0). Intenta valores entre 1.1 y 1.4")]
     public float alturaFijaSuelo = 1.3f;
 
     public void CerrarPanel(GameObject panel)
@@ -28,54 +24,42 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void ToggleAjustes()
+    public void ToggleSeccionTareas()
     {
-        if (panelAjustes != null)
+        if (seccionListaTareas != null)
         {
-            if (panelAjustes.activeSelf)
+            if (seccionListaTareas.activeSelf)
             {
-                panelAjustes.SetActive(false);
-            }
-            else
-            {
-                if (panelMenuPrincipal) panelMenuPrincipal.SetActive(false);
-                OcultarTodasLasTareas();
-
-                PosicionarFrenteAlJugador(panelAjustes);
-                panelAjustes.SetActive(true);
-            }
-        }
-    }
-
-    public void ToggleListaTareas()
-    {
-        if (panelListaTareas != null)
-        {
-            if (panelListaTareas.activeSelf)
-            {
-                panelListaTareas.SetActive(false);
+                seccionListaTareas.SetActive(false);
                 OcultarTodasLasTareas();
             }
             else
             {
-                if (panelMenuPrincipal) panelMenuPrincipal.SetActive(false);
+                if (seccionAjustes) seccionAjustes.SetActive(false);
 
-                PosicionarFrenteAlJugador(panelListaTareas);
-                panelListaTareas.SetActive(true);
+                PosicionarFrenteAlJugador(seccionListaTareas);
+                seccionListaTareas.SetActive(true);
             }
         }
     }
 
-    public void VolverAlMenu()
+    public void ToggleSeccionAjustes()
     {
-        if (panelAjustes) panelAjustes.SetActive(false);
-        if (panelListaTareas) panelListaTareas.SetActive(false);
-        OcultarTodasLasTareas();
-
-        if (panelMenuPrincipal)
+        if (seccionAjustes != null)
         {
-            PosicionarFrenteAlJugador(panelMenuPrincipal);
-            panelMenuPrincipal.SetActive(true);
+            if (seccionAjustes.activeSelf)
+            {
+                seccionAjustes.SetActive(false);
+                OcultarTodasLasTareas();
+            }
+            else
+            {
+                if (seccionListaTareas) seccionListaTareas.SetActive(false);
+                OcultarTodasLasTareas();
+
+                PosicionarFrenteAlJugador(seccionAjustes);
+                seccionAjustes.SetActive(true);
+            }
         }
     }
 
@@ -149,13 +133,9 @@ public class UIController : MonoBehaviour
             direccionDerecha.y = 0;
             direccionDerecha.Normalize();
 
-            if (panel != panelListaTareas && panel != panelAjustes && panel != panelMenuPrincipal)
+            if (panel != seccionListaTareas && panel != seccionAjustes)
             {
-                posicionFinal -= direccionDerecha * 1.2f;
-            }
-            else if (panel == panelAjustes && panelListaTareas != null && panelListaTareas.activeSelf)
-            {
-                posicionFinal += direccionDerecha * 1.2f;
+                posicionFinal -= direccionDerecha * 1.4f;
             }
 
             posicionFinal.y = alturaFijaSuelo;

@@ -827,7 +827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f251c1f3f5f5e84f91a77d02a014f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 16121113}
 --- !u!1 &26654470
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,9 +952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a98701559d3194d8fe1801c8d55042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelMenuPrincipal: {fileID: 0}
-  panelListaTareas: {fileID: 723490141}
-  panelAjustes: {fileID: 1136201025}
+  seccionListaTareas: {fileID: 723490141}
+  seccionAjustes: {fileID: 1136201025}
   panelRecogerHuevos: {fileID: 16121113}
   panelLimpiarCerdos: {fileID: 1782188364}
   panelAlimentarAnimales: {fileID: 1839563505}
@@ -5442,7 +5440,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 369050470}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 37105339}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: ToggleSeccionAjustes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &369050470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9961,7 +9971,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 37105339}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: ToggleAjustes
+        m_MethodName: ToggleSeccionAjustes
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10173,7 +10183,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 709650768}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 37105339}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: ToggleSeccionTareas
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &709650768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10560,7 +10582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f251c1f3f5f5e84f91a77d02a014f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 723490141}
 --- !u!114 &723490144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14613,6 +14634,7 @@ GameObject:
   - component: {fileID: 1082865222}
   - component: {fileID: 1082865221}
   - component: {fileID: 1082865220}
+  - component: {fileID: 1082865224}
   m_Layer: 0
   m_Name: suelo
   m_TagString: Untagged
@@ -14710,6 +14732,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1082865224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082865219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2568db88377ee40acdaeebca1cf2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetHUD: {x: 0.5, y: -0.4, z: 1.5}
+  velocidadSeguimiento: 3
 --- !u!1 &1085374340
 GameObject:
   m_ObjectHideFlags: 0
@@ -24658,7 +24694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f251c1f3f5f5e84f91a77d02a014f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 1782188364}
 --- !u!1 &1815318735
 GameObject:
   m_ObjectHideFlags: 0
@@ -25395,7 +25430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f251c1f3f5f5e84f91a77d02a014f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 1839563505}
 --- !u!1 &1843674827
 GameObject:
   m_ObjectHideFlags: 0
@@ -26990,6 +27024,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6984c48aed9a154294088f4265d8478, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1961042367}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6984c48aed9a154294088f4265d8478, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1961042371}
   m_SourcePrefab: {fileID: 100100000, guid: c6984c48aed9a154294088f4265d8478, type: 3}
 --- !u!4 &1961042363 stripped
 Transform:
@@ -27222,6 +27259,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1961042371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961042365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2568db88377ee40acdaeebca1cf2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetHUD: {x: 0.5, y: -0.4, z: 1.5}
+  velocidadSeguimiento: 3
 --- !u!1 &1961494665
 GameObject:
   m_ObjectHideFlags: 0
@@ -27663,7 +27714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f251c1f3f5f5e84f91a77d02a014f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 1961528018}
 --- !u!1 &1961850150
 GameObject:
   m_ObjectHideFlags: 0
