@@ -11,8 +11,6 @@ public class EggPickup : MonoBehaviour
         hasBeenCollected = true;
         Debug.Log("[EggPickup] Huevo recogido correctamente.");
 
-        TaskManager.Instance?.CompleteTask("recoger_huevo");
-
         transform.root.gameObject.SetActive(false);
     }
 }
