@@ -11,25 +11,31 @@ public class FeedZone : MonoBehaviour
     private float _feedTimer = 0f;
     private bool _isFeeding = false;
 
+    // Referencia al Animator de la gallina
     private Animator _animator;
 
-    // Contador estático para la misión global
+    // Contador compartido entre todos los FeedZone
     private static int _chickensFed = 0;
+    private static int _chickensRequired = 2;
 
     void Awake()
     {
         _animator = GetComponent<Animator>();
-        if (_animator == null) _animator = GetComponentInParent<Animator>();
+        if (_animator == null)
+        {
+            _animator = GetComponentInParent<Animator>();
+        }
     }
 
     void Start()
     {
         _chickensFed = 0; 
-        
-        // Al empezar, nos aseguramos de que el parámetro esté apagado
+
+        // 🌟 TRUCO: Al empezar el juego, pausamos la animación de la gallina
+        // para que se quede quieta como si fuera su pose de espera (Idle)
         if (_animator != null)
         {
-            _animator.SetBool("isEating", false);
+            _animator.speed = 0f;
         }
     }
 
@@ -44,12 +50,12 @@ public class FeedZone : MonoBehaviour
         {
             _isFeeding = true;
             _feedTimer = 0f;
-            Debug.Log($"[FeedZone] ¡Alimentando a {animalName}!");
+            Debug.Log($"[FeedZone] ¡Alimentando a {animalName}! Activando movimiento.");
 
-            // 🌟 NUEVO: Solo ESTA gallina activa su animación
+            // 🌟 TRUCO: Despausamos la animación. La gallina empezará a moverse/picar el suelo
             if (_animator != null)
             {
-                _animator.SetBool("isEating", true); 
+                _animator.speed = 1f; 
             }
         }
     }
@@ -84,12 +90,12 @@ public class FeedZone : MonoBehaviour
         {
             _isFeeding = false;
             _feedTimer = 0f;
-            Debug.Log($"[FeedZone] {animalName}: alimentación cancelada.");
+            Debug.Log($"[FeedZone] {animalName}: alimentación cancelada. Pausando movimiento.");
 
-            // 🌟 NUEVO: Si se retira la comida, solo ESTA gallina se detiene
+            // 🌟 TRUCO: Si se lleva la comida antes de tiempo, la gallina se vuelve a congelar
             if (_animator != null)
             {
-                _animator.SetBool("isEating", false);
+                _animator.speed = 0f;
             }
         }
     }
@@ -100,19 +106,21 @@ public class FeedZone : MonoBehaviour
         _isFeeding = false;
         _chickensFed++;
 
-        Debug.Log($"[FeedZone] ✓ {animalName} alimentado con éxito. Total: {_chickensFed}");
+        Debug.Log($"[FeedZone] ✓ {animalName} alimentado con éxito. Pollos: {_chickensFed} / {_chickensRequired}");
 
-        // 🌟 NUEVO: Apagamos la animación de esta gallina porque ya terminó
+        // 🌟 TRUCO: Cuando ya está saciada, congelamos la animación para que deje de comer
         if (_animator != null)
         {
-            _animator.SetBool("isEating", false); 
+            _animator.speed = 0f; 
         }
 
-        // Actualizamos la interfaz custom
-        ObjectivesUI ui = Object.FindFirstObjectByType<ObjectivesUI>();
-        if (ui != null)
+        if (_chickensFed >= _chickensRequired)
         {
-            ui.FeedAnimal(); 
+            Debug.Log("[FeedZone] ¡Todos los pollos requeridos han comido!");
+            if (TaskManager.Instance != null)
+            {
+                TaskManager.Instance.CompleteTask("alimentar_chicken");
+            }
         }
     }
 
