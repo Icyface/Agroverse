@@ -12,33 +12,41 @@ public class CollectionZone : MonoBehaviour
     {
         if (_taskCompleted) return;
 
-        // Buscamos el componente del huevo en el objeto o sus hijos
-        EggPickup egg = other.transform.root.GetComponentInChildren<EggPickup>();
+        // Buscamos el script de forma mucho más segura.
+        // Primero en el propio objeto que choca, luego en sus hijos, y por último en sus padres.
+        EggPickup egg = other.GetComponent<EggPickup>();
+        if (egg == null) egg = other.GetComponentInChildren<EggPickup>();
+        if (egg == null) egg = other.GetComponentInParent<EggPickup>();
 
-        if (egg != null && !egg.hasBeenCollected)
+        // Si sigue siendo null, probamos con el método root por si acaso
+        if (egg == null) egg = other.transform.root.GetComponentInChildren<EggPickup>();
+
+        if (egg != null)
         {
-            egg.hasBeenCollected = true;
-            _eggsCollected++;
-
-            Debug.Log($"[CollectionZone] Huevo {_eggsCollected} / {eggsRequired} detectado físicamente.");
-
-            // Buscamos tu interfaz en la escena y le decimos que sume un huevo
-            ObjectivesUI ui = Object.FindFirstObjectByType<ObjectivesUI>();
-            if (ui != null)
+            if (!egg.hasBeenCollected)
             {
-                ui.AddEgg(); // Esto actualizará la UI a 1/3, 2/3... y avisará al TaskManager al llegar a 3
-                Debug.Log("[CollectionZone] UI notificada con éxito.");
+                egg.hasBeenCollected = true;
+                _eggsCollected++;
+
+                Debug.Log($"[CollectionZone] ✓ Huevo contado con éxito: {_eggsCollected} / {eggsRequired}. Objeto: {other.gameObject.name}");
+
+                // Notificamos a la UI
+                ObjectivesUI ui = Object.FindFirstObjectByType<ObjectivesUI>();
+                if (ui != null)
+                {
+                    ui.AddEgg();
+                }
+
+                if (_eggsCollected >= eggsRequired)
+                {
+                    _taskCompleted = true;
+                    Debug.Log("[CollectionZone] ¡Objetivo de huevos alcanzado!");
+                }
             }
             else
             {
-                Debug.LogError("[CollectionZone] ¡ERROR! No se encuentra el script 'ObjectivesUI' en la escena para actualizar el texto.");
-            }
-
-            // Si ya hemos alcanzado el total en la cesta, bloqueamos el trigger para no contar de más
-            if (_eggsCollected >= eggsRequired)
-            {
-                _taskCompleted = true;
-                Debug.Log("[CollectionZone] Cesta llena. Objetivo completado.");
+                // CHIVATO: Si el huevo ya se había contado antes, te avisará en la consola
+                Debug.LogWarning($"[CollectionZone] El huevo {other.gameObject.name} ha entrado, pero YA tenía el check de recolectado activo.");
             }
         }
     }
