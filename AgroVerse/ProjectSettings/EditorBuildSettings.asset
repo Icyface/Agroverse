@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/CoreScene.unity
     guid: 0eea8209260074b41a78cf8fdf3a0075
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PantallaInicio.unity
     guid: e2747769f4e3b0b43b01b4d393cdb9aa
   - enabled: 1
