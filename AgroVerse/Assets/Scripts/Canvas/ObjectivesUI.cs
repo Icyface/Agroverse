@@ -9,6 +9,9 @@ public class ObjectivesUI : MonoBehaviour
     public TMP_Text pigText;
     public TMP_Text cowText;
 
+    [Header("Referencias de la Granja")]
+    public GameObject lecheCuboObjeto; 
+
     public int eggs { get; private set; } = 0;
     public int feed { get; private set; } = 0;
     public bool pigCleaned { get; private set; } = false;
@@ -17,6 +20,11 @@ public class ObjectivesUI : MonoBehaviour
     private void Start()
     {
         UpdateUI();
+
+        if (lecheCuboObjeto != null && !cowMilked)
+        {
+            lecheCuboObjeto.SetActive(false);
+        }
     }
 
     private void UpdateUI()
@@ -73,6 +81,13 @@ public class ObjectivesUI : MonoBehaviour
         if (!cowMilked)
         {
             cowMilked = true;
+
+            if (lecheCuboObjeto != null)
+            {
+                lecheCuboObjeto.SetActive(true);
+                Debug.Log("[ObjectivesUI] ¡Cubo de la vaca llenado visualmente con el cilindro de leche!");
+            }
+
             if (TaskManager.Instance != null) TaskManager.Instance.CompleteTask("munyir_vaca");
             UpdateUI();
         }
@@ -84,6 +99,12 @@ public class ObjectivesUI : MonoBehaviour
         feed = forcedFeed;
         pigCleaned = forcedPig;
         cowMilked = forcedCow;
+        
+        if (lecheCuboObjeto != null)
+        {
+            lecheCuboObjeto.SetActive(cowMilked);
+        }
+
         UpdateUI();
     }
 }
