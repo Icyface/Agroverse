@@ -2495,7 +2495,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Volume
-      value: 0.241
+      value: 0.097
       objectReference: {fileID: 0}
     - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Enabled
@@ -2634,6 +2634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c736df43c02c6ec4b830355eebe0d749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sonidos: []
 --- !u!82 &131241048
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6672,6 +6673,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9149064632040130585, guid: 26a7899ef02f8244baaabc9ee398e493, type: 3}
+      propertyPath: emptyVisualPrefab
+      value: 
+      objectReference: {fileID: 8509264217186061752, guid: 93d752a32844ae04e8ff2206078f337a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24636,7 +24641,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Volume
-      value: 0.237
+      value: 0.167
       objectReference: {fileID: 0}
     - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Enabled
@@ -24891,6 +24896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c736df43c02c6ec4b830355eebe0d749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sonidos: []
 --- !u!65 &1195294975
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32489,6 +32495,10 @@ PrefabInstance:
       propertyPath: MaxDistance
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 9149064632040130585, guid: 26a7899ef02f8244baaabc9ee398e493, type: 3}
+      propertyPath: emptyVisualPrefab
+      value: 
+      objectReference: {fileID: 8509264217186061752, guid: 93d752a32844ae04e8ff2206078f337a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36671,7 +36681,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Volume
-      value: 0.235
+      value: 0.147
       objectReference: {fileID: 0}
     - target: {fileID: 1000222836303465037, guid: 5288d84d29524d94ca6c8bf289d1928a, type: 3}
       propertyPath: m_Enabled
@@ -36810,6 +36820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c736df43c02c6ec4b830355eebe0d749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sonidos: []
 --- !u!82 &1802478573
 AudioSource:
   m_ObjectHideFlags: 0
@@ -42912,10 +42923,6 @@ PrefabInstance:
     - target: {fileID: 7330638949870039422, guid: 0268415e2ad4eea44bde4f47c1ca343e, type: 3}
       propertyPath: m_Name
       value: platolleno
-      objectReference: {fileID: 0}
-    - target: {fileID: 7330638949870039422, guid: 0268415e2ad4eea44bde4f47c1ca343e, type: 3}
-      propertyPath: m_TagString
-      value: grain
       objectReference: {fileID: 0}
     - target: {fileID: 7994023365404076996, guid: 0268415e2ad4eea44bde4f47c1ca343e, type: 3}
       propertyPath: m_LocalPosition.x

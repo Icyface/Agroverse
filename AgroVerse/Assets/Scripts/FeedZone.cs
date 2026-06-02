@@ -3,17 +3,19 @@ using UnityEngine;
 public class FeedZone : MonoBehaviour
 {
     [Header("Configuración")]
-    public string acceptedFoodType = "generic";
+    public string acceptedFoodType = "grain"; // Ajustado a vuestro tipo "grain"
     public string animalName = "Animal";
     public float feedDuration = 3f;
+
+    [Header("Visuales del Alimento")]
+    [Tooltip("Arrastra aquí el modelo, malla o hijo del plato vacío que queráis activar al terminar.")]
+    public GameObject emptyVisualPrefab; 
 
     private bool _hasBeenFed = false;
     private float _feedTimer = 0f;
     private bool _isFeeding = false;
 
     private Animator _animator;
-
-    // Contador estático para la misión global
     private static int _chickensFed = 0;
 
     void Awake()
@@ -25,8 +27,6 @@ public class FeedZone : MonoBehaviour
     void Start()
     {
         _chickensFed = 0; 
-        
-        // Al empezar, nos aseguramos de que el parámetro esté apagado
         if (_animator != null)
         {
             _animator.SetBool("isEating", false);
@@ -46,7 +46,6 @@ public class FeedZone : MonoBehaviour
             _feedTimer = 0f;
             Debug.Log($"[FeedZone] ¡Alimentando a {animalName}!");
 
-            // 🌟 NUEVO: Solo ESTA gallina activa su animación
             if (_animator != null)
             {
                 _animator.SetBool("isEating", true); 
@@ -64,11 +63,11 @@ public class FeedZone : MonoBehaviour
         if (food != null && food.foodType == acceptedFoodType)
         {
             _feedTimer += Time.deltaTime;
-            Debug.Log($"[FeedZone] {animalName} comiendo: {_feedTimer:F1} / {feedDuration}s");
 
             if (_feedTimer >= feedDuration)
             {
-                Feed();
+                // 🌟 Pasamos el objeto "other" (el plato) para poder vaciarlo
+                Feed(other.gameObject);
             }
         }
     }
@@ -86,7 +85,6 @@ public class FeedZone : MonoBehaviour
             _feedTimer = 0f;
             Debug.Log($"[FeedZone] {animalName}: alimentación cancelada.");
 
-            // 🌟 NUEVO: Si se retira la comida, solo ESTA gallina se detiene
             if (_animator != null)
             {
                 _animator.SetBool("isEating", false);
@@ -94,26 +92,55 @@ public class FeedZone : MonoBehaviour
         }
     }
 
-    void Feed()
+    // Modificado para recibir el objeto del plato lleno
+    void Feed(GameObject foodObject)
     {
         _hasBeenFed = true;
         _isFeeding = false;
         _chickensFed++;
 
-        Debug.Log($"[FeedZone] ✓ {animalName} alimentado con éxito. Total: {_chickensFed}");
+        Debug.Log($"[FeedZone] ✓ {animalName} alimentado con éxito.");
 
-        // 🌟 NUEVO: Apagamos la animación de esta gallina porque ya terminó
         if (_animator != null)
         {
             _animator.SetBool("isEating", false); 
         }
 
-        // Actualizamos la interfaz custom
+        // 🌟 NUEVO: TRUCO DE VACIAZO VISUAL DEL PLATO
+        VaciarPlatoVisual(foodObject);
+
+        // Actualizamos la interfaz
         ObjectivesUI ui = Object.FindFirstObjectByType<ObjectivesUI>();
         if (ui != null)
         {
             ui.FeedAnimal(); 
         }
+    }
+
+    // Intercambia los platos o mallas
+    void VaciarPlatoVisual(GameObject fullPlate)
+    {
+        if (fullPlate == null) return;
+
+        // Buscamos el objeto raíz del plato por si acaso chocó un hijo colisionador
+        GameObject rootPlate = fullPlate.transform.root.gameObject;
+
+        if (emptyVisualPrefab != null)
+        {
+            // 1. Instanciamos el plato vacío en la misma posición y rotación exacta que tiene el lleno en la mano del jugador
+            GameObject emptyPlate = Instantiate(emptyVisualPrefab, rootPlate.transform.position, rootPlate.transform.rotation);
+            
+            // Si el plato estaba enganchado a la mano de VR (tiene un padre), lo enganchamos al mismo sitio
+            if (rootPlate.transform.parent != null)
+            {
+                emptyPlate.transform.SetParent(rootPlate.transform.parent);
+            }
+
+            Debug.Log("[FeedZone] ¡Plato lleno cambiado por el plato vacío con éxito!");
+        }
+
+        // 2. Destruimos el plato lleno de la escena para que desaparezca
+        Destroy(rootPlate);
     }
 
     void OnDrawGizmosSelected()
